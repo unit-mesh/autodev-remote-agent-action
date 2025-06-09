@@ -67,6 +67,31 @@ inputs:
     required: false
     default: ''
 
+  include-config-files:
+    description: 'Include configuration files in analysis (jest.config.js, rollup.config.mjs, etc.)'
+    required: false
+    default: 'true'
+
+  include-test-files:
+    description: 'Include test files in analysis (__tests__/, *.test.js, etc.)'
+    required: false
+    default: 'true'
+
+  include-patterns:
+    description: 'Comma-separated list of file patterns to force include in analysis'
+    required: false
+    default: ''
+
+  exclude-patterns:
+    description: 'Comma-separated list of file patterns to exclude from analysis'
+    required: false
+    default: ''
+
+  force-include-files:
+    description: 'Comma-separated list of specific files to always include in analysis'
+    required: false
+    default: ''
+
 outputs:
   success:
     description: 'Whether the analysis was successful'

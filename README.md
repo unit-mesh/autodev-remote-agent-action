@@ -111,6 +111,11 @@ npx autodev-github-action validate
 | `trigger-events` | Events that trigger analysis | `opened,edited,reopened` | No |
 | `exclude-labels` | Labels to exclude from analysis | `` | No |
 | `include-labels` | Labels to include for analysis | `` | No |
+| `include-config-files` | Include configuration files in analysis | `true` | No |
+| `include-test-files` | Include test files in analysis | `true` | No |
+| `include-patterns` | File patterns to force include | `` | No |
+| `exclude-patterns` | File patterns to exclude | `` | No |
+| `force-include-files` | Specific files to always include | `` | No |
 | `webhook-secret` | Secret for webhook verification | `` | No |
 
 *At least one LLM API key is required for AI analysis
@@ -216,7 +221,39 @@ The AI may filter out files that seem unrelated to your issue:
 - Build and package files unless the issue mentions dependencies or build problems
 - Documentation files unless the issue is about documentation
 
-💡 **Tip**: To get better analysis results, mention specific files, functions, or error messages in your issue description.
+💡 **Tips for Better Analysis Results**:
+
+1. **Mention specific files**: "Error in `jest.config.js`" vs "Configuration problem"
+2. **Include error messages**: Copy-paste actual error text
+3. **Reference functions/classes**: "Issue in `getUserData()` function"
+4. **Specify file types**: "Test configuration issue" includes test files
+5. **Use keywords**: "build", "config", "test", "dependency" help include relevant files
+
+### Understanding Analysis Comments
+
+When the action analyzes your issue, it will add a comment with sections like:
+
+```markdown
+## 🤖 Automated Issue Analysis
+
+### 🔍 Analysis Process
+- Files scanned: 45
+- Files analyzed: 8
+- Files filtered: 37 (see details below)
+- Analysis steps: 5
+
+### ⚠️ Files Filtered from Analysis
+37 files were not included in the analysis. This may include:
+- jest.config.js - Configuration files often filtered by LLM as not directly relevant
+- rollup.config.mjs - Build configuration files typically excluded from issue analysis
+- __tests__/setup.ts - Test setup files may be filtered if issue doesn't mention testing
+
+💡 Suggestions to include these files:
+- Mention "configuration", "config files", or specific config file names if your issue relates to build/setup
+- Include "test", "testing", or "test failure" if your issue involves test problems
+```
+
+This transparency helps you understand why certain files weren't considered and how to improve your issue description for better analysis.
 
 ## Examples
 
@@ -244,6 +281,46 @@ The AI may filter out files that seem unrelated to your issue:
     exclude-labels: 'wontfix,duplicate'
     include-labels: 'bug,enhancement'
 ```
+
+### File Filtering Configuration
+
+Control which files are included in the analysis:
+
+```yaml
+- name: Custom File Filtering
+  uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+    # File inclusion settings
+    include-config-files: true    # Include jest.config.js, rollup.config.mjs, etc.
+    include-test-files: true      # Include __tests__/, *.test.js, etc.
+    # Custom patterns (comma-separated)
+    include-patterns: "*.config.js,*.config.ts,docker-compose.yml"
+    exclude-patterns: "*.min.js,*.bundle.js"
+    force-include-files: "important-config.js,critical-setup.ts"
+```
+
+### Transparency and Diagnostics
+
+The action now provides detailed process information in comments:
+
+```yaml
+- name: Analysis with Full Transparency
+  uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+    auto-comment: true  # Comments will include process details
+    analysis-depth: medium
+```
+
+**What you'll see in analysis comments:**
+- 📊 **Process Summary**: Files scanned vs. analyzed vs. filtered
+- ⚠️ **Filtered Files**: Specific files that were excluded and why
+- 🔄 **Analysis Steps**: Each step's success/failure with timing
+- 🧠 **LLM Calls**: AI service calls and any errors
+- 💡 **Improvement Suggestions**: How to get better analysis results
 
 ### Webhook Server Setup
 

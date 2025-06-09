@@ -1,0 +1,211 @@
+# Advanced GitHub Workflow Example
+# This example demonstrates all the new transparency and file filtering features
+
+name: Advanced Issue Analysis
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  # Optional: Manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to analyze'
+        required: true
+        type: number
+
+jobs:
+  analyze-issue:
+    name: Analyze Issue with Full Transparency
+    runs-on: ubuntu-latest
+    
+    # Skip analysis for certain labels
+    if: >
+      !contains(github.event.issue.labels.*.name, 'wontfix') &&
+      !contains(github.event.issue.labels.*.name, 'duplicate') &&
+      !contains(github.event.issue.labels.*.name, 'invalid')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🔍 Analyze Issue with AutoDev
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        with:
+          # Required tokens
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          
+          # Analysis settings
+          analysis-depth: medium
+          auto-comment: true
+          auto-label: true
+          
+          # Event and label filtering
+          trigger-events: 'opened,edited,reopened'
+          exclude-labels: 'wontfix,duplicate,invalid'
+          include-labels: 'bug,enhancement,question,documentation'
+          
+          # File filtering settings (new features!)
+          include-config-files: true
+          include-test-files: true
+          include-patterns: '*.config.js,*.config.ts,docker-compose.yml,Dockerfile'
+          exclude-patterns: '*.min.js,*.bundle.js,node_modules/**,dist/**'
+          force-include-files: 'jest.config.js,rollup.config.mjs,important-setup.ts'
+        
+      - name: 📊 Log Analysis Results
+        if: always()
+        run: |
+          echo "🎯 Analysis completed!"
+          echo "Issue: #${{ github.event.issue.number || inputs.issue_number }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Triggered by: ${{ github.event_name }}"
+
+  # Example: Different configuration for different issue types
+  analyze-config-issues:
+    name: Analyze Configuration Issues
+    runs-on: ubuntu-latest
+    
+    # Only run for issues labeled as configuration problems
+    if: contains(github.event.issue.labels.*.name, 'configuration')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🔧 Analyze Configuration Issue
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          
+          # Deep analysis for config issues
+          analysis-depth: deep
+          
+          # Focus on configuration files
+          include-config-files: true
+          include-test-files: false
+          force-include-files: 'jest.config.js,rollup.config.mjs,webpack.config.js,vite.config.ts,package.json'
+          include-patterns: '*.config.*,*.json,*.yml,*.yaml,Dockerfile,docker-compose.*'
+
+  # Example: Lightweight analysis for questions
+  analyze-questions:
+    name: Quick Analysis for Questions
+    runs-on: ubuntu-latest
+    
+    # Only run for questions
+    if: contains(github.event.issue.labels.*.name, 'question')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: ❓ Quick Analysis for Question
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          
+          # Shallow analysis for quick responses
+          analysis-depth: shallow
+          
+          # Include documentation
+          include-patterns: '*.md,docs/**,README.*'
+          exclude-patterns: 'node_modules/**,dist/**,build/**'
+
+  # Example: Test-focused analysis
+  analyze-test-issues:
+    name: Analyze Test Issues
+    runs-on: ubuntu-latest
+    
+    # Run for test-related issues
+    if: >
+      contains(github.event.issue.labels.*.name, 'test') ||
+      contains(github.event.issue.title, 'test') ||
+      contains(github.event.issue.body, 'test')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🧪 Analyze Test Issue
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          
+          # Medium analysis for test issues
+          analysis-depth: medium
+          
+          # Focus on test files and configuration
+          include-test-files: true
+          include-config-files: true
+          force-include-files: 'jest.config.js,vitest.config.ts,cypress.config.js'
+          include-patterns: '*.test.*,*.spec.*,__tests__/**,test/**,tests/**'
+
+  # Example: Documentation-focused analysis
+  analyze-docs-issues:
+    name: Analyze Documentation Issues
+    runs-on: ubuntu-latest
+    
+    # Run for documentation issues
+    if: >
+      contains(github.event.issue.labels.*.name, 'documentation') ||
+      contains(github.event.issue.labels.*.name, 'docs')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📚 Analyze Documentation Issue
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          
+          # Shallow analysis for docs
+          analysis-depth: shallow
+          
+          # Focus on documentation files
+          include-test-files: false
+          include-config-files: false
+          include-patterns: '*.md,*.rst,*.txt,docs/**,documentation/**,README.*,CHANGELOG.*'
+          exclude-patterns: 'node_modules/**,dist/**,build/**'
+
+  # Example: Manual testing workflow
+  manual-test:
+    name: Manual Test Analysis
+    runs-on: ubuntu-latest
+    
+    # Only run on manual trigger
+    if: github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🔬 Manual Test Analysis
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          
+          # Full transparency for testing
+          analysis-depth: deep
+          auto-comment: true
+          auto-label: false  # Don't auto-label during testing
+          
+          # Include everything for comprehensive testing
+          include-config-files: true
+          include-test-files: true
+          force-include-files: 'jest.config.js,rollup.config.mjs,package.json'
+        env:
+          # Override issue number for manual testing
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          
+      - name: 📋 Test Results Summary
+        if: always()
+        run: |
+          echo "🧪 Manual test completed!"
+          echo "Tested issue: #${{ inputs.issue_number }}"
+          echo "Check the issue comments for detailed transparency information."

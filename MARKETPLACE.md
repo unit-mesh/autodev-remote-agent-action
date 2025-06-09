@@ -9,6 +9,9 @@
 - **🏷️ Smart Labeling**: Automatically apply relevant labels based on analysis
 - **⚙️ Configurable**: Flexible configuration options for different workflows
 - **🚀 Easy Setup**: Simple integration with existing GitHub workflows
+- **🔍 Process Transparency**: See exactly what files were analyzed and why others were filtered
+- **🛠️ Smart File Filtering**: Control which files are included in analysis with patterns and rules
+- **📊 Diagnostic Information**: Get detailed explanations when analysis results are limited
 
 ## 🚀 Quick Start
 
@@ -104,6 +107,42 @@ When an issue is created, edited, or reopened, this action will:
 3. **Generate intelligent insights** and recommendations
 4. **Add a detailed comment** with analysis results (if enabled)
 5. **Apply relevant labels** for better organization (if enabled)
+6. **Provide transparency** about the analysis process and file filtering
+7. **Offer suggestions** for improving issue descriptions when results are limited
+
+## 🔍 New: Analysis Transparency
+
+The action now provides detailed information about what happened during analysis:
+
+### Process Visibility
+- **Files Scanned**: Total files found in your repository
+- **Files Analyzed**: Files the AI determined were relevant
+- **Files Filtered**: Files excluded from analysis and why
+- **Analysis Steps**: Each step's success/failure with timing
+- **LLM Calls**: AI service interactions and any errors
+
+### Smart Diagnostics
+When analysis results are limited, you'll get:
+- **Specific explanations** of why files were filtered
+- **Actionable suggestions** for improving issue descriptions
+- **File type recommendations** (mention "config", "test", etc.)
+- **Example improvements** showing before/after issue descriptions
+
+### Example Analysis Comment
+```markdown
+🔍 Analysis Process
+- Files scanned: 45
+- Files analyzed: 8
+- Files filtered: 37 (see details below)
+
+⚠️ Files Filtered from Analysis
+- jest.config.js - Configuration files often filtered unless mentioned
+- __tests__/setup.ts - Test files filtered when issue doesn't mention testing
+
+💡 Suggestions to include these files:
+- Mention "configuration" or "config files" for build/setup issues
+- Include "test" or "testing" for test-related problems
+```
 
 ## 🔧 Supported LLM Providers
 
