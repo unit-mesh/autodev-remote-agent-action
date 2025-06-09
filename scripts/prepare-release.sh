@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 # Get the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ACTION_DIR="$(dirname "$SCRIPT_DIR")"
-ROOT_DIR="$(dirname "$(dirname "$ACTION_DIR")")"
+ROOT_DIR="$ACTION_DIR"
 
 echo -e "${BLUE}📁 Action directory: $ACTION_DIR${NC}"
 echo -e "${BLUE}📁 Root directory: $ROOT_DIR${NC}"
@@ -33,7 +33,7 @@ fi
 echo -e "${GREEN}✅ Build completed${NC}"
 
 # Step 2: Create release directory
-RELEASE_DIR="$ROOT_DIR/github-agent-action-release"
+RELEASE_DIR="$ROOT_DIR/release"
 echo -e "\n${YELLOW}📂 Step 2: Creating release directory...${NC}"
 rm -rf "$RELEASE_DIR"
 mkdir -p "$RELEASE_DIR"
@@ -44,6 +44,7 @@ cp "$ACTION_DIR/action.yml" "$RELEASE_DIR/"
 cp "$ACTION_DIR/LICENSE" "$RELEASE_DIR/"
 cp "$ACTION_DIR/README.md" "$RELEASE_DIR/"
 cp "$ACTION_DIR/MARKETPLACE.md" "$RELEASE_DIR/"
+cp "$ACTION_DIR/.env.example" "$RELEASE_DIR/"
 cp -r "$ACTION_DIR/dist" "$RELEASE_DIR/"
 
 # Create a simplified package.json for the release

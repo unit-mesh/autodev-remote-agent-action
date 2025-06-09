@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Analyze Issue
-        uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}  # or use openai-api-key/glm-token
@@ -137,7 +137,7 @@ This action supports multiple LLM providers. You need to configure at least one 
 
 ### DeepSeek (Recommended)
 ```yaml
-- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+- uses: unit-mesh/autodev-remote-agent-action@v0.3.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
@@ -145,7 +145,7 @@ This action supports multiple LLM providers. You need to configure at least one 
 
 ### OpenAI
 ```yaml
-- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+- uses: unit-mesh/autodev-remote-agent-action@v0.3.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -153,7 +153,7 @@ This action supports multiple LLM providers. You need to configure at least one 
 
 ### GLM (ChatGLM)
 ```yaml
-- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+- uses: unit-mesh/autodev-remote-agent-action@v0.3.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     glm-token: ${{ secrets.GLM_TOKEN }}
@@ -194,7 +194,7 @@ This action supports multiple LLM providers. You need to configure at least one 
 
 ```yaml
 - name: Analyze Issues
-  uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+  uses: unit-mesh/autodev-remote-agent-action@v0.3.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
@@ -204,7 +204,7 @@ This action supports multiple LLM providers. You need to configure at least one 
 
 ```yaml
 - name: Advanced Issue Analysis
-  uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+  uses: unit-mesh/autodev-remote-agent-action@v0.3.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}

@@ -1,0 +1,60 @@
+name: 🧪 Test AutoDev Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to analyze'
+        required: true
+        type: number
+      analysis_depth:
+        description: 'Analysis depth'
+        required: false
+        default: 'medium'
+        type: choice
+        options:
+          - shallow
+          - medium
+          - deep
+      auto_comment:
+        description: 'Add analysis comment'
+        required: false
+        default: true
+        type: boolean
+      auto_label:
+        description: 'Add labels based on analysis'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  test-analysis:
+    name: Test Issue Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🔍 Test AutoDev Action
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          analysis-depth: ${{ inputs.analysis_depth }}
+          auto-comment: ${{ inputs.auto_comment }}
+          auto-label: ${{ inputs.auto_label }}
+        env:
+          # For testing specific issue
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+        
+      - name: 📊 Display Test Results
+        if: always()
+        run: |
+          echo "🎯 Test completed!"
+          echo "Repository: ${{ github.repository }}"
+          echo "Issue: #${{ inputs.issue_number }}"
+          echo "Analysis depth: ${{ inputs.analysis_depth }}"
+          echo "Auto comment: ${{ inputs.auto_comment }}"
+          echo "Auto label: ${{ inputs.auto_label }}"
