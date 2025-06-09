@@ -304,12 +304,6 @@ node dist/index.js --help
 
 ### Build Process
 
-The project uses a clean separation between source and build artifacts:
-
-- **Source code**: All TypeScript source files are in `src/`
-- **Build output**: Generated JavaScript files go to `dist/` (git-ignored)
-- **CI/CD**: GitHub Actions automatically builds and publishes releases
-
 ```bash
 # Clean build (removes dist/ and rebuilds)
 npm run build:clean
@@ -319,6 +313,9 @@ npm run dev
 
 # Lint code
 npm run lint
+
+# Test locally
+node dist/index.js --help
 ```
 
 ### Project Structure
@@ -331,10 +328,9 @@ autodev-remote-agent-action/
 │   ├── webhook-handler.ts  # Webhook server
 │   ├── types/             # Type definitions
 │   └── index.ts           # Main entry point
-├── dist/                  # Build output (git-ignored)
+├── dist/                  # Build output (committed to git)
 ├── bin/
 │   └── action.js          # CLI entry point
-├── .github/workflows/     # CI/CD workflows
 ├── action.yml             # GitHub Action definition
 ├── package.json
 └── README.md
@@ -343,10 +339,12 @@ autodev-remote-agent-action/
 ### Release Process
 
 1. Make your changes and test locally
-2. Update version in `package.json`
-3. Commit and push changes
-4. Create a git tag: `git tag v0.3.2 && git push origin v0.3.2`
-5. GitHub Actions will automatically build and publish the release
+2. Run `npm run build:clean` to ensure clean build
+3. Test the built action: `node dist/index.js`
+4. Update version in `package.json`
+5. Commit all changes including `dist/` files
+6. Create a git tag: `git tag v0.3.3 && git push origin v0.3.3`
+7. The new version will be available for use in GitHub Actions
 
 ## Contributing
 
