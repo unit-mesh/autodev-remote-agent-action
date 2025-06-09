@@ -84,6 +84,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^7.1.0
         version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
+      '@vercel/ncc':
+        specifier: ^0.38.3
+        version: 0.38.3
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
@@ -1398,6 +1401,10 @@ packages:
   '@unit-mesh/treesitter-artifacts@1.7.3':
     resolution: {integrity: sha512-wiICangD3q7o6PsLjvcYc0lQwN5S+7RWVA/wBSBNutUgROU8X8o0I4ClJiCy7AT3DKpYVZz1Aq5O8zq3kBxqrQ==}
     engines: {node: '>=18.0.0'}
+
+  '@vercel/ncc@0.38.3':
+    resolution: {integrity: sha512-rnK6hJBS6mwc+Bkab+PGPs9OiS0i/3kdTO+CkI8V0/VrW3vmz7O2Pxjw/owOlmo6PKEIxRSeZKv/kuL9itnpYA==}
+    hasBin: true
 
   '@vscode/ripgrep@1.15.11':
     resolution: {integrity: sha512-G/VqtA6kR50mJkIH4WA+I2Q78V5blovgPPq0VPYM0QIRp57lYMkdV+U9VrY80b3AvaC72A1z8STmyxc8ZKiTsw==}
@@ -5401,6 +5408,8 @@ snapshots:
       - supports-color
       - tree-sitter
       - tree_sitter
+
+  '@vercel/ncc@0.38.3': {}
 
   '@vscode/ripgrep@1.15.11':
     dependencies:

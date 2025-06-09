@@ -29,6 +29,8 @@
   "scripts": {
     "build": "rollup -c",
     "build:clean": "npm run clean && npm run build",
+    "build:ncc": "ncc build src/index.ts -o dist --license licenses.txt",
+    "build:action": "npm run clean && npm run build:ncc",
     "dev": "rollup -c -w",
     "start": "node dist/index.js",
     "test": "jest",
@@ -88,6 +90,7 @@
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
+    "@vercel/ncc": "^0.38.3",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "rimraf": "^5.0.5",
