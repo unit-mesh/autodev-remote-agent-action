@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: 🔍 Analyze Issue with AutoDev
-        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
