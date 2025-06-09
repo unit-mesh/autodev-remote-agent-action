@@ -166,10 +166,22 @@ export class IssueAnalyzer {
    * Generate comment text for the issue using LLM (similar to agent.ts approach)
    */
   async generateComment(analysisResult: any): Promise<string> {
+    // Debug logging to understand the structure
+    console.log('🔍 Generating comment for analysis result:', {
+      hasAnalysisResult: !!analysisResult,
+      hasNestedAnalysisResult: !!(analysisResult?.analysisResult),
+      hasText: !!(analysisResult?.text),
+      textLength: analysisResult?.text?.length || 0,
+      executionTime: analysisResult?.executionTime
+    });
+
     if (!analysisResult || !analysisResult.analysisResult) {
+      console.warn('⚠️ Missing analysis result data for comment generation');
       return `## 🤖 Automated Issue Analysis
 
 Analysis completed successfully. Please check the analysis results for detailed information.
+
+**Analysis completed in:** ${analysisResult?.executionTime || 'N/A'}ms
 
 ---
 *This analysis was generated automatically by AutoDev GitHub Agent*`;
@@ -178,6 +190,7 @@ Analysis completed successfully. Please check the analysis results for detailed 
     // Try to generate enhanced comment using LLM
     try {
       if (this.llmService.isAvailable()) {
+        console.log('Using LLM service for comment generation');
         const comment = await this.generateEnhancedComment(analysisResult);
         return comment;
       } else {
@@ -185,17 +198,17 @@ Analysis completed successfully. Please check the analysis results for detailed 
         return this.generateEnhancedFormattedComment(analysisResult);
       }
     } catch (error) {
-      console.warn('Failed to generate enhanced comment, falling back to basic format:', error);
+      console.warn('Failed to generate enhanced comment, falling back to enhanced format:', error);
 
-      // Fallback to using the report text directly
-      return `## 🤖 Automated Issue Analysis
+      // First try the enhanced formatted comment as fallback
+      try {
+        return this.generateEnhancedFormattedComment(analysisResult);
+      } catch (enhancedError) {
+        console.warn('Enhanced formatting also failed, using basic format with detailed content:', enhancedError);
 
-${analysisResult.text || 'Analysis completed successfully.'}
-
-**Analysis completed in:** ${analysisResult.executionTime || 'N/A'}ms
-
----
-*This analysis was generated automatically by AutoDev GitHub Agent*`;
+        // Final fallback with detailed content
+        return this.generateBasicFormattedComment(analysisResult);
+      }
     }
   }
 
@@ -234,6 +247,39 @@ ${analysisResult.text || 'Analysis completed successfully.'}
       console.warn('LLM service failed:', errorMessage);
       throw new Error(`LLM comment generation failed: ${errorMessage}`);
     }
+  }
+
+  /**
+   * Generate basic formatted comment with detailed content as final fallback
+   */
+  private generateBasicFormattedComment(analysisResult: any): string {
+    const sections = [];
+
+    // Header
+    sections.push('## 🤖 Automated Issue Analysis');
+    sections.push('');
+
+    // Include the detailed analysis text if available
+    if (analysisResult.text && analysisResult.text.trim()) {
+      sections.push('### 📊 Analysis Results');
+      sections.push(analysisResult.text);
+      sections.push('');
+    } else {
+      sections.push('Analysis completed successfully.');
+      sections.push('');
+    }
+
+    // Execution info
+    if (analysisResult.executionTime) {
+      sections.push(`**Analysis completed in:** ${analysisResult.executionTime}ms`);
+      sections.push('');
+    }
+
+    // Footer
+    sections.push('---');
+    sections.push('*This analysis was generated automatically by AutoDev GitHub Agent*');
+
+    return sections.join('\n');
   }
 
   /**
@@ -278,9 +324,14 @@ ${analysisResult.text || 'Analysis completed successfully.'}
     }
 
     // Original report content if available
-    if (analysisResult.text) {
+    if (analysisResult.text && analysisResult.text.trim()) {
       sections.push('### 📊 Detailed Analysis');
       sections.push(analysisResult.text);
+      sections.push('');
+    } else {
+      // If no detailed text, show a basic message
+      sections.push('### 📊 Analysis Status');
+      sections.push('Analysis completed successfully. The issue has been processed and analyzed.');
       sections.push('');
     }
 

@@ -211,6 +211,10 @@ declare class IssueAnalyzer {
      */
     private generateEnhancedComment;
     /**
+     * Generate basic formatted comment with detailed content as final fallback
+     */
+    private generateBasicFormattedComment;
+    /**
      * Generate enhanced formatted comment without LLM
      */
     private generateEnhancedFormattedComment;
