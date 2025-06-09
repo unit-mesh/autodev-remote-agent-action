@@ -1,0 +1,113 @@
+name: 🚀 Build and Release
+
+on:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    name: 🔨 Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: 📥 Install Dependencies
+        run: npm ci
+      
+      - name: 🔍 Lint Code
+        run: npm run lint
+      
+      - name: 🧪 Run Tests
+        run: npm test
+      
+      - name: 🔨 Build Project
+        run: npm run build:clean
+      
+      - name: 📤 Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 30
+
+  test-action:
+    name: 🧪 Test Action
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: 📥 Install Dependencies
+        run: npm ci
+      
+      - name: 🔨 Build Project
+        run: npm run build:clean
+      
+      - name: 🧪 Test Action Locally
+        run: node dist/index.js --help || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    name: 🚀 Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: 📥 Install Dependencies
+        run: npm ci
+      
+      - name: 🔨 Build Project
+        run: npm run build:clean
+      
+      - name: 📤 Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      
+      - name: 🚀 Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: 📋 Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false

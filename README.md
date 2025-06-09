@@ -287,7 +287,9 @@ await handler.start();
 git clone https://github.com/unit-mesh/autodev-remote-agent-action.git
 cd autodev-remote-agent-action
 
-# Install dependencies
+# Install dependencies (using pnpm for better dependency management)
+pnpm install
+# or use npm
 npm install
 
 # Build the package
@@ -295,24 +297,56 @@ npm run build
 
 # Run tests
 npm test
+
+# Test locally
+node dist/index.js --help
+```
+
+### Build Process
+
+The project uses a clean separation between source and build artifacts:
+
+- **Source code**: All TypeScript source files are in `src/`
+- **Build output**: Generated JavaScript files go to `dist/` (git-ignored)
+- **CI/CD**: GitHub Actions automatically builds and publishes releases
+
+```bash
+# Clean build (removes dist/ and rebuilds)
+npm run build:clean
+
+# Development build with watch mode
+npm run dev
+
+# Lint code
+npm run lint
 ```
 
 ### Project Structure
 
 ```
 autodev-remote-agent-action/
-├── src/
+├── src/                   # Source code (TypeScript)
 │   ├── action.ts           # Main action service
 │   ├── issue-analyzer.ts   # Issue analysis logic
 │   ├── webhook-handler.ts  # Webhook server
 │   ├── types/             # Type definitions
 │   └── index.ts           # Main entry point
+├── dist/                  # Build output (git-ignored)
 ├── bin/
 │   └── action.js          # CLI entry point
+├── .github/workflows/     # CI/CD workflows
 ├── action.yml             # GitHub Action definition
 ├── package.json
 └── README.md
 ```
+
+### Release Process
+
+1. Make your changes and test locally
+2. Update version in `package.json`
+3. Commit and push changes
+4. Create a git tag: `git tag v0.3.2 && git push origin v0.3.2`
+5. GitHub Actions will automatically build and publish the release
 
 ## Contributing
 
