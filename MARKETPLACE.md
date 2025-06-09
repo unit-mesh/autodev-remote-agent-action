@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Analyze Issue
-        uses: unit-mesh/github-agent-action@v1
+        uses: unit-mesh/autodev-remote-agent-action@v0.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -76,7 +76,7 @@ jobs:
 
 ### Basic Configuration
 ```yaml
-- uses: unit-mesh/github-agent-action@v1
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -84,7 +84,7 @@ jobs:
 
 ### Advanced Configuration
 ```yaml
-- uses: unit-mesh/github-agent-action@v1
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -114,12 +114,12 @@ When an issue is created, edited, or reopened, this action will:
 ## 📚 Documentation
 
 For detailed documentation, examples, and troubleshooting, visit:
-- [GitHub Repository](https://github.com/unit-mesh/autodev-workbench)
-- [Quick Start Guide](https://github.com/unit-mesh/autodev-workbench/blob/master/packages/github-agent-action/QUICK_START.md)
+- [GitHub Repository](https://github.com/unit-mesh/autodev-remote-agent-action)
+- [Quick Start Guide](https://github.com/unit-mesh/autodev-remote-agent-action/blob/master/QUICK_START.md)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see our [Contributing Guide](https://github.com/unit-mesh/autodev-workbench/blob/master/CONTRIBUTING.md) for details.
+Contributions are welcome! Please see our [Contributing Guide](https://github.com/unit-mesh/autodev-remote-agent-action/blob/master/CONTRIBUTING.md) for details.
 
 ## 📄 License
 
@@ -127,6 +127,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🆘 Support
 
-- 📖 [Documentation](https://github.com/unit-mesh/autodev-workbench)
-- 🐛 [Issue Tracker](https://github.com/unit-mesh/autodev-workbench/issues)
-- 💬 [Discussions](https://github.com/unit-mesh/autodev-workbench/discussions)
+- 📖 [Documentation](https://github.com/unit-mesh/autodev-remote-agent-action)
+- 🐛 [Issue Tracker](https://github.com/unit-mesh/autodev-remote-agent-action/issues)
+- 💬 [Discussions](https://github.com/unit-mesh/autodev-remote-agent-action/discussions)

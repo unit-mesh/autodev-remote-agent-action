@@ -20,14 +20,13 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Analyze Issue
-        uses: unit-mesh/autodev-workbench/packages/github-agent-action@master
+        uses: unit-mesh/autodev-remote-agent-action@v0.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           analysis-depth: medium
           auto-comment: true
           auto-label: true
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ### 方法 2: 测试现有功能
@@ -74,23 +73,23 @@ jobs:
 
 ### 基础配置
 ```yaml
-- uses: unit-mesh/autodev-workbench/packages/github-agent-action@master
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ### 高级配置
 ```yaml
-- uses: unit-mesh/autodev-workbench/packages/github-agent-action@master
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
     analysis-depth: deep
     auto-comment: true
     auto-label: true
     exclude-labels: 'wontfix,duplicate'
     include-labels: 'bug,enhancement'
-  env:
-    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ## 🎯 预期效果
@@ -115,7 +114,7 @@ jobs:
 
 1. 查看 [完整文档](README.md)
 2. 检查 [测试指南](TESTING.md)
-3. 提交 [Issue](https://github.com/unit-mesh/autodev-workbench/issues)
+3. 提交 [Issue](https://github.com/unit-mesh/autodev-remote-agent-action/issues)
 
 ## 📊 监控使用
 

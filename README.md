@@ -13,6 +13,25 @@
 
 ## Quick Start
 
+### Prerequisites
+
+Before using this action, you need:
+1. A GitHub repository
+2. An API key from one of the supported LLM providers (OpenAI, DeepSeek, or GLM)
+
+### Setup Steps
+
+1. **Add API Key Secret**:
+   - Go to your repository's **Settings** → **Secrets and variables** → **Actions**
+   - Click **New repository secret**
+   - Add `OPENAI_API_KEY` (or `DEEPSEEK_TOKEN`/`GLM_TOKEN`) with your API key
+
+2. **Create Workflow File**:
+   - Create `.github/workflows/issue-analysis.yml` in your repository
+
+3. **Configure the Action**:
+   - Use the configuration examples below
+
 ### GitHub Actions Usage
 
 Add this action to your workflow file (e.g., `.github/workflows/issue-analysis.yml`):
@@ -21,7 +40,7 @@ Add this action to your workflow file (e.g., `.github/workflows/issue-analysis.y
 name: Analyze Issues
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, reopened]
 
 jobs:
   analyze:
@@ -29,11 +48,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Analyze Issue
-        uses: ./packages/github-agent-action
+        uses: unit-mesh/autodev-remote-agent-action@v0.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}  # or use deepseek-token/glm-token
           analysis-depth: medium
           auto-comment: true
           auto-label: true
@@ -48,6 +68,7 @@ npm install
 # Set environment variables
 export GITHUB_TOKEN="your-github-token"
 export WEBHOOK_SECRET="your-webhook-secret"
+export OPENAI_API_KEY="your-openai-api-key"  # or DEEPSEEK_TOKEN/GLM_TOKEN
 
 # Start the server
 npx autodev-github-action server --port 3000
@@ -77,6 +98,9 @@ npx autodev-github-action validate
 | Input | Description | Default | Required |
 |-------|-------------|---------|----------|
 | `github-token` | GitHub token for API access | `${{ github.token }}` | Yes |
+| `openai-api-key` | OpenAI API key for LLM analysis | `` | No* |
+| `deepseek-token` | DeepSeek API token for LLM analysis | `` | No* |
+| `glm-token` | GLM API token for LLM analysis | `` | No* |
 | `workspace-path` | Path to repository workspace | `${{ github.workspace }}` | No |
 | `analysis-depth` | Analysis depth (shallow/medium/deep) | `medium` | No |
 | `auto-comment` | Add analysis comment to issues | `true` | No |
@@ -84,12 +108,18 @@ npx autodev-github-action validate
 | `trigger-events` | Events that trigger analysis | `opened,edited,reopened` | No |
 | `exclude-labels` | Labels to exclude from analysis | `` | No |
 | `include-labels` | Labels to include for analysis | `` | No |
+| `webhook-secret` | Secret for webhook verification | `` | No |
+
+*At least one LLM API key is required for AI analysis
 
 ### Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `GITHUB_TOKEN` | GitHub personal access token | Required |
+| `OPENAI_API_KEY` | OpenAI API key for LLM analysis | Optional* |
+| `DEEPSEEK_TOKEN` | DeepSeek API token for LLM analysis | Optional* |
+| `GLM_TOKEN` | GLM API token for LLM analysis | Optional* |
 | `WEBHOOK_SECRET` | Secret for webhook verification | Optional |
 | `WORKSPACE_PATH` | Repository workspace path | `process.cwd()` |
 | `AUTO_COMMENT` | Auto-add comments | `true` |
@@ -98,6 +128,45 @@ npx autodev-github-action validate
 | `TRIGGER_EVENTS` | Trigger events | `opened,edited,reopened` |
 | `EXCLUDE_LABELS` | Exclude labels | `` |
 | `INCLUDE_LABELS` | Include labels | `` |
+
+*At least one LLM API key is required for AI analysis
+
+## LLM Configuration
+
+This action supports multiple LLM providers. You need to configure at least one API key:
+
+### OpenAI (Recommended)
+```yaml
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+```
+
+### DeepSeek
+```yaml
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+```
+
+### GLM (ChatGLM)
+```yaml
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    glm-token: ${{ secrets.GLM_TOKEN }}
+```
+
+### Setting up API Keys
+
+1. Go to your repository's **Settings** → **Secrets and variables** → **Actions**
+2. Click **New repository secret**
+3. Add one of the following secrets:
+   - `OPENAI_API_KEY`: Your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+   - `DEEPSEEK_TOKEN`: Your DeepSeek API token from [DeepSeek Platform](https://platform.deepseek.com/)
+   - `GLM_TOKEN`: Your GLM API token from [GLM Platform](https://open.bigmodel.cn/)
 
 ## Analysis Depths
 
@@ -125,18 +194,20 @@ npx autodev-github-action validate
 
 ```yaml
 - name: Analyze Issues
-  uses: ./packages/github-agent-action
+  uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ### Advanced Configuration
 
 ```yaml
 - name: Advanced Issue Analysis
-  uses: ./packages/github-agent-action
+  uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
     analysis-depth: deep
     auto-comment: true
     auto-label: true
@@ -212,23 +283,23 @@ await handler.start();
 
 ```bash
 # Clone the repository
-git clone https://github.com/unit-mesh/autodev-worker.git
-cd autodev-worker/packages/github-agent-action
+git clone https://github.com/unit-mesh/autodev-remote-agent-action.git
+cd autodev-remote-agent-action
 
 # Install dependencies
-pnpm install
+npm install
 
 # Build the package
-pnpm run build
+npm run build
 
 # Run tests
-pnpm test
+npm test
 ```
 
 ### Project Structure
 
 ```
-packages/github-agent-action/
+autodev-remote-agent-action/
 ├── src/
 │   ├── action.ts           # Main action service
 │   ├── issue-analyzer.ts   # Issue analysis logic
@@ -256,12 +327,12 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Related Projects
 
-- [AutoDev GitHub Agent](../github-agent) - Core analysis engine
-- [AutoDev Context Worker](../context-worker) - Code context analysis
-- [AutoDev Worker Core](../worker-core) - Core utilities
+- [AutoDev GitHub Agent](https://github.com/unit-mesh/autodev) - Core analysis engine
+- [AutoDev Context Worker](https://github.com/unit-mesh/autodev) - Code context analysis
+- [AutoDev Worker Core](https://github.com/unit-mesh/autodev) - Core utilities
 
 ## Support
 
-- 📖 [Documentation](https://github.com/unit-mesh/autodev-worker)
-- 🐛 [Issue Tracker](https://github.com/unit-mesh/autodev-worker/issues)
-- 💬 [Discussions](https://github.com/unit-mesh/autodev-worker/discussions)
+- 📖 [Documentation](https://github.com/unit-mesh/autodev-remote-agent-action)
+- 🐛 [Issue Tracker](https://github.com/unit-mesh/autodev-remote-agent-action/issues)
+- 💬 [Discussions](https://github.com/unit-mesh/autodev-remote-agent-action/discussions)
