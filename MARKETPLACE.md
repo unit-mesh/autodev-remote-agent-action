@@ -1,4 +1,4 @@
-# AutoDev GitHub Agent Action
+# AutoDev Remote Agent
 
 🤖 **Automated GitHub issue analysis using AI-powered code analysis**
 
@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Analyze Issue
-        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
+        uses: unit-mesh/autodev-remote-agent-action@v0.4.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
