@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Analyze Issue
-        uses: unit-mesh/autodev-remote-agent-action@v0.3.0
+        uses: unit-mesh/autodev-remote-agent-action@v0.3.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
@@ -73,7 +73,7 @@ jobs:
 
 ### 基础配置
 ```yaml
-- uses: unit-mesh/autodev-remote-agent-action@v0.3.0
+- uses: unit-mesh/autodev-remote-agent-action@v0.3.1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
@@ -81,7 +81,7 @@ jobs:
 
 ### 高级配置
 ```yaml
-- uses: unit-mesh/autodev-remote-agent-action@v0.3.0
+- uses: unit-mesh/autodev-remote-agent-action@v0.3.1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
