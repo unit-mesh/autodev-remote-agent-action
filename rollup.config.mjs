@@ -43,7 +43,11 @@ export default [
       resolve({
         preferBuiltins: true,
         exportConditions: ['node'],
-        browser: false
+        browser: false,
+        resolveOnly: (module) => {
+          // Bundle all npm packages, only externalize Node.js built-ins
+          return !external.includes(module);
+        }
       }),
       commonjs({
         ignoreDynamicRequires: true
@@ -69,7 +73,11 @@ export default [
       resolve({
         preferBuiltins: true,
         exportConditions: ['node'],
-        browser: false
+        browser: false,
+        resolveOnly: (module) => {
+          // Bundle all npm packages, only externalize Node.js built-ins
+          return !external.includes(module);
+        }
       }),
       commonjs({
         ignoreDynamicRequires: true
