@@ -23,7 +23,7 @@ jobs:
         uses: unit-mesh/autodev-remote-agent-action@v0.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
           analysis-depth: medium
           auto-comment: true
           auto-label: true
@@ -47,8 +47,8 @@ jobs:
 
 - `github-token`: GitHub API 访问令牌
 - LLM API Key (选择一个):
+  - `DEEPSEEK_TOKEN`: DeepSeek API 密钥 (推荐)
   - `OPENAI_API_KEY`: OpenAI API 密钥
-  - `DEEPSEEK_TOKEN`: DeepSeek API 密钥  
   - `GLM_TOKEN`: GLM API 密钥
 
 ### 可选配置
@@ -65,8 +65,8 @@ jobs:
 
 1. 进入 Settings → Secrets and variables → Actions
 2. 添加以下 secrets：
+   - `DEEPSEEK_TOKEN` (如果使用 DeepSeek，推荐)
    - `OPENAI_API_KEY` (如果使用 OpenAI)
-   - `DEEPSEEK_TOKEN` (如果使用 DeepSeek)
    - `GLM_TOKEN` (如果使用 GLM)
 
 ## 📝 示例工作流
@@ -76,7 +76,7 @@ jobs:
 - uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
 ```
 
 ### 高级配置
@@ -84,7 +84,7 @@ jobs:
 - uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
     analysis-depth: deep
     auto-comment: true
     auto-label: true

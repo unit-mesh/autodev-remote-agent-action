@@ -24,7 +24,7 @@ Before using this action, you need:
 1. **Add API Key Secret**:
    - Go to your repository's **Settings** → **Secrets and variables** → **Actions**
    - Click **New repository secret**
-   - Add `OPENAI_API_KEY` (or `DEEPSEEK_TOKEN`/`GLM_TOKEN`) with your API key
+   - Add `DEEPSEEK_TOKEN` (or `OPENAI_API_KEY`/`GLM_TOKEN`) with your API key
 
 2. **Create Workflow File**:
    - Create `.github/workflows/issue-analysis.yml` in your repository
@@ -53,7 +53,7 @@ jobs:
         uses: unit-mesh/autodev-remote-agent-action@v0.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}  # or use deepseek-token/glm-token
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}  # or use openai-api-key/glm-token
           analysis-depth: medium
           auto-comment: true
           auto-label: true
@@ -68,7 +68,7 @@ npm install
 # Set environment variables
 export GITHUB_TOKEN="your-github-token"
 export WEBHOOK_SECRET="your-webhook-secret"
-export OPENAI_API_KEY="your-openai-api-key"  # or DEEPSEEK_TOKEN/GLM_TOKEN
+export DEEPSEEK_TOKEN="your-deepseek-token"  # or OPENAI_API_KEY/GLM_TOKEN
 
 # Start the server
 npx autodev-github-action server --port 3000
@@ -98,8 +98,8 @@ npx autodev-github-action validate
 | Input | Description | Default | Required |
 |-------|-------------|---------|----------|
 | `github-token` | GitHub token for API access | `${{ github.token }}` | Yes |
-| `openai-api-key` | OpenAI API key for LLM analysis | `` | No* |
 | `deepseek-token` | DeepSeek API token for LLM analysis | `` | No* |
+| `openai-api-key` | OpenAI API key for LLM analysis | `` | No* |
 | `glm-token` | GLM API token for LLM analysis | `` | No* |
 | `workspace-path` | Path to repository workspace | `${{ github.workspace }}` | No |
 | `analysis-depth` | Analysis depth (shallow/medium/deep) | `medium` | No |
@@ -117,8 +117,8 @@ npx autodev-github-action validate
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `GITHUB_TOKEN` | GitHub personal access token | Required |
-| `OPENAI_API_KEY` | OpenAI API key for LLM analysis | Optional* |
 | `DEEPSEEK_TOKEN` | DeepSeek API token for LLM analysis | Optional* |
+| `OPENAI_API_KEY` | OpenAI API key for LLM analysis | Optional* |
 | `GLM_TOKEN` | GLM API token for LLM analysis | Optional* |
 | `WEBHOOK_SECRET` | Secret for webhook verification | Optional |
 | `WORKSPACE_PATH` | Repository workspace path | `process.cwd()` |
@@ -135,20 +135,20 @@ npx autodev-github-action validate
 
 This action supports multiple LLM providers. You need to configure at least one API key:
 
-### OpenAI (Recommended)
-```yaml
-- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-```
-
-### DeepSeek
+### DeepSeek (Recommended)
 ```yaml
 - uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
+```
+
+### OpenAI
+```yaml
+- uses: unit-mesh/autodev-remote-agent-action@v0.2.0
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ### GLM (ChatGLM)
@@ -164,8 +164,8 @@ This action supports multiple LLM providers. You need to configure at least one 
 1. Go to your repository's **Settings** → **Secrets and variables** → **Actions**
 2. Click **New repository secret**
 3. Add one of the following secrets:
-   - `OPENAI_API_KEY`: Your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
    - `DEEPSEEK_TOKEN`: Your DeepSeek API token from [DeepSeek Platform](https://platform.deepseek.com/)
+   - `OPENAI_API_KEY`: Your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
    - `GLM_TOKEN`: Your GLM API token from [GLM Platform](https://open.bigmodel.cn/)
 
 ## Analysis Depths
@@ -197,7 +197,7 @@ This action supports multiple LLM providers. You need to configure at least one 
   uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
 ```
 
 ### Advanced Configuration
@@ -207,7 +207,7 @@ This action supports multiple LLM providers. You need to configure at least one 
   uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
     analysis-depth: deep
     auto-comment: true
     auto-label: true

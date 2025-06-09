@@ -31,7 +31,7 @@ jobs:
         uses: unit-mesh/autodev-remote-agent-action@v0.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
           analysis-depth: medium
           auto-comment: true
           auto-label: true
@@ -42,8 +42,8 @@ jobs:
 | Input | Description | Required | Default |
 |-------|-------------|----------|---------|
 | `github-token` | GitHub token for API access | Yes | `${{ github.token }}` |
-| `openai-api-key` | OpenAI API key for LLM analysis | No | - |
 | `deepseek-token` | DeepSeek API token for LLM analysis | No | - |
+| `openai-api-key` | OpenAI API key for LLM analysis | No | - |
 | `glm-token` | GLM API token for LLM analysis | No | - |
 | `analysis-depth` | Analysis depth (shallow/medium/deep) | No | `medium` |
 | `auto-comment` | Add analysis comment to issues | No | `true` |
@@ -64,8 +64,8 @@ jobs:
 ## 🔑 Setup
 
 1. **Add API Key**: Add one of the following secrets to your repository:
-   - `OPENAI_API_KEY` (recommended)
-   - `DEEPSEEK_TOKEN`
+   - `DEEPSEEK_TOKEN` (recommended)
+   - `OPENAI_API_KEY`
    - `GLM_TOKEN`
 
 2. **Configure Workflow**: Add the action to your workflow file
@@ -79,7 +79,7 @@ jobs:
 - uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
 ```
 
 ### Advanced Configuration
@@ -87,7 +87,7 @@ jobs:
 - uses: unit-mesh/autodev-remote-agent-action@v0.2.0
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
-    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
     analysis-depth: deep
     auto-comment: true
     auto-label: true
@@ -107,8 +107,8 @@ When an issue is created, edited, or reopened, this action will:
 
 ## 🔧 Supported LLM Providers
 
+- **DeepSeek** (DeepSeek-V2) - Recommended
 - **OpenAI** (GPT-3.5, GPT-4)
-- **DeepSeek** (DeepSeek-V2)
 - **GLM** (ChatGLM)
 
 ## 📚 Documentation
