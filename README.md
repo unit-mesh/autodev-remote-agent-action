@@ -10,6 +10,8 @@
 - 🌐 **Webhook Support**: Standalone webhook server for real-time issue processing
 - ⚙️ **Configurable**: Flexible configuration options for different workflows
 - 🔗 **Integration Ready**: Built on top of the proven AutoDev GitHub Agent
+- 🔍 **Process Transparency**: Detailed analysis process information and file filtering insights
+- 🛠️ **Diagnostic Information**: Clear explanations when analysis results are limited
 - 🍽️ **Dogfooding**: We use our own action to analyze issues in this repository!
 
 ## Quick Start
@@ -188,6 +190,33 @@ This action supports multiple LLM providers. You need to configure at least one 
 - Longer execution time (60-120 seconds)
 - Architectural pattern analysis
 - Best for complex issues
+
+## 🔍 Analysis Transparency
+
+This action provides detailed information about the analysis process to help you understand what happened:
+
+### Process Information
+- **Files Scanned**: Total number of files found in your repository
+- **Files Analyzed**: Number of files the AI determined were relevant
+- **Files Filtered**: Number of files excluded from analysis and why
+- **Analysis Steps**: Detailed breakdown of each analysis phase
+- **LLM Calls**: Information about AI service calls and their success/failure
+
+### When Analysis Results Are Limited
+If the analysis produces limited results, the action will provide:
+- **Diagnostic Information**: Explanation of what might have gone wrong
+- **File Filtering Details**: Which types of files were excluded and why
+- **Improvement Suggestions**: How to write better issue descriptions for more comprehensive analysis
+- **Troubleshooting Tips**: Common issues and how to resolve them
+
+### Common File Filtering Scenarios
+The AI may filter out files that seem unrelated to your issue:
+- Configuration files (jest.config.js, rollup.config.mjs, etc.) unless specifically mentioned
+- Test setup files unless the issue is about testing
+- Build and package files unless the issue mentions dependencies or build problems
+- Documentation files unless the issue is about documentation
+
+💡 **Tip**: To get better analysis results, mention specific files, functions, or error messages in your issue description.
 
 ## Examples
 

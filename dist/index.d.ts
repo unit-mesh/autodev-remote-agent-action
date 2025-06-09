@@ -12,6 +12,11 @@ interface ActionConfig {
     triggerEvents?: string[];
     excludeLabels?: string[];
     includeLabels?: string[];
+    includeConfigFiles?: boolean;
+    includeTestFiles?: boolean;
+    includePatterns?: string[];
+    excludePatterns?: string[];
+    forceIncludeFiles?: string[];
 }
 interface WebhookPayload {
     action: string;
@@ -62,6 +67,33 @@ interface AnalysisOptions {
     includeSymbolAnalysis?: boolean;
     maxFiles?: number;
     timeout?: number;
+    includeConfigFiles?: boolean;
+    includeTestFiles?: boolean;
+    includePatterns?: string[];
+    excludePatterns?: string[];
+    forceIncludeFiles?: string[];
+}
+interface AnalysisProcessInfo {
+    filesScanned: number;
+    filesAnalyzed: number;
+    filesFiltered: number;
+    filteredFiles: Array<{
+        path: string;
+        reason: string;
+        relevanceScore?: number;
+    }>;
+    analysisSteps: Array<{
+        step: string;
+        status: 'completed' | 'failed' | 'skipped';
+        duration: number;
+        details?: string;
+    }>;
+    llmCalls: Array<{
+        purpose: string;
+        success: boolean;
+        duration: number;
+        error?: string;
+    }>;
 }
 interface ActionResult {
     success: boolean;
@@ -70,6 +102,7 @@ interface ActionResult {
     labelsAdded?: string[];
     error?: string;
     executionTime?: number;
+    processInfo?: AnalysisProcessInfo;
 }
 interface LabelConfig {
     bugLabel?: string;
@@ -193,6 +226,7 @@ declare class IssueAnalyzer {
     private llmService;
     private context;
     private labelConfig;
+    private processInfo;
     constructor(context: ActionContext);
     /**
      * Analyze an issue using the same logic as analyze-issue.js
@@ -219,6 +253,14 @@ declare class IssueAnalyzer {
      */
     private generateEnhancedFormattedComment;
     /**
+     * Add process details to comment for transparency
+     */
+    private addProcessDetailsToComment;
+    /**
+     * Generate diagnostic comment when analysis results are insufficient
+     */
+    private generateProcessDiagnosticComment;
+    /**
      * Format LLM analysis report as a GitHub comment
      */
     private formatLLMReportAsComment;
@@ -226,6 +268,70 @@ declare class IssueAnalyzer {
      * Update label configuration
      */
     setLabelConfig(config: Partial<LabelConfig>): void;
+    /**
+     * Scan workspace files to understand what's available
+     */
+    private scanWorkspaceFiles;
+    /**
+     * Get all files in workspace recursively
+     */
+    private getWorkspaceFiles;
+    /**
+     * Check if file is a configuration file
+     */
+    private isConfigFile;
+    /**
+     * Check if file is a test file
+     */
+    private isTestFile;
+    /**
+     * Check if file is a source file
+     */
+    private isSourceFile;
+    /**
+     * Add an analysis step to the process tracking
+     */
+    private addAnalysisStep;
+    /**
+     * Add an LLM call to the process tracking
+     */
+    private addLLMCall;
+    /**
+     * Track which files were analyzed vs filtered by the ContextAnalyzer
+     */
+    private trackAnalysisResults;
+    /**
+     * Identify specific important files that were filtered out
+     */
+    private identifyFilteredImportantFiles;
+    /**
+     * Check if a file is considered important for analysis
+     */
+    private isImportantFile;
+    /**
+     * Check if file is a package/dependency file
+     */
+    private isPackageFile;
+    /**
+     * Check if file is a documentation file
+     */
+    private isDocumentationFile;
+    /**
+     * Get the reason why a file was likely filtered
+     */
+    private getFilterReason;
+    /**
+     * Add generic examples when specific detection fails
+     */
+    private addGenericFilteredFileExamples;
+    /**
+     * Generate specific suggestions based on filtered file types
+     */
+    private generateFilteringSuggestions;
+    /**
+     * Log a summary of the analysis process
+     */
+    private logAnalysisSummary;
 }
 
 declare class WebhookHandler {

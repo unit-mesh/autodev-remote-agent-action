@@ -46,6 +46,12 @@ export class GitHubActionService {
       triggerEvents: this.getInput('trigger-events')?.split(',') || ['opened', 'edited', 'reopened'],
       excludeLabels: this.getInput('exclude-labels')?.split(',').filter(Boolean) || [],
       includeLabels: this.getInput('include-labels')?.split(',').filter(Boolean) || [],
+      // File filtering configuration with sensible defaults
+      includeConfigFiles: this.getBooleanInput('include-config-files') ?? true,
+      includeTestFiles: this.getBooleanInput('include-test-files') ?? true,
+      includePatterns: this.getInput('include-patterns')?.split(',').filter(Boolean) || [],
+      excludePatterns: this.getInput('exclude-patterns')?.split(',').filter(Boolean) || [],
+      forceIncludeFiles: this.getInput('force-include-files')?.split(',').filter(Boolean) || [],
       ...overrides
     };
 
@@ -132,7 +138,13 @@ export class GitHubActionService {
         depth: context.config.analysisDepth,
         includeCodeSearch: true,
         includeSymbolAnalysis: true,
-        timeout: 120000
+        timeout: 120000,
+        // File filtering options
+        includeConfigFiles: context.config.includeConfigFiles,
+        includeTestFiles: context.config.includeTestFiles,
+        includePatterns: context.config.includePatterns,
+        excludePatterns: context.config.excludePatterns,
+        forceIncludeFiles: context.config.forceIncludeFiles
       };
 
       // Perform analysis
