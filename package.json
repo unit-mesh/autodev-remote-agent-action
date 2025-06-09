@@ -1,6 +1,6 @@
 {
   "name": "autodev-remote-agent-action",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "AutoDev GitHub Agent Action - Automated issue analysis for GitHub repositories",
   "main": "dist/index.js",
   "bin": {
