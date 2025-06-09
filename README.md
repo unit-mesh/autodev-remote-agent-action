@@ -10,6 +10,7 @@
 - 🌐 **Webhook Support**: Standalone webhook server for real-time issue processing
 - ⚙️ **Configurable**: Flexible configuration options for different workflows
 - 🔗 **Integration Ready**: Built on top of the proven AutoDev GitHub Agent
+- 🍽️ **Dogfooding**: We use our own action to analyze issues in this repository!
 
 ## Quick Start
 

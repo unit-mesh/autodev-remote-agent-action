@@ -4,19 +4,8 @@ import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
 import { dts } from 'rollup-plugin-dts';
 
+// For GitHub Actions, we only externalize Node.js built-in modules
 const external = [
-  '@actions/core',
-  '@actions/github',
-  '@autodev/github-agent',
-  '@autodev/context-worker',
-  '@autodev/worker-core',
-  '@octokit/rest',
-  '@octokit/webhooks',
-  '@octokit/webhooks-types',
-  'express',
-  'dotenv',
-  'zod',
-  'ai',
   'fs',
   'path',
   'crypto',
@@ -29,7 +18,14 @@ const external = [
   'buffer',
   'querystring',
   'os',
-  'child_process'
+  'child_process',
+  'net',
+  'tls',
+  'zlib',
+  'readline',
+  'dns',
+  'cluster',
+  'worker_threads'
 ];
 
 export default [
@@ -46,9 +42,12 @@ export default [
     plugins: [
       resolve({
         preferBuiltins: true,
-        exportConditions: ['node']
+        exportConditions: ['node'],
+        browser: false
       }),
-      commonjs(),
+      commonjs({
+        ignoreDynamicRequires: true
+      }),
       json(),
       typescript({
         tsconfig: './tsconfig.json',
@@ -69,9 +68,12 @@ export default [
     plugins: [
       resolve({
         preferBuiltins: true,
-        exportConditions: ['node']
+        exportConditions: ['node'],
+        browser: false
       }),
-      commonjs(),
+      commonjs({
+        ignoreDynamicRequires: true
+      }),
       json(),
       typescript({
         tsconfig: './tsconfig.json',
