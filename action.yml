@@ -1,4 +1,4 @@
-name: 'AutoDev GitHub Agent Action'
+name: 'AutoDev Remote Agent'
 description: 'Automated GitHub issue analysis using AI-powered code analysis'
 author: 'AutoDev authors'
 

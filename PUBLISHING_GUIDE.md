@@ -1,6 +1,6 @@
 # 📦 GitHub Actions Marketplace 发布指南
 
-本指南将帮助您将 AutoDev GitHub Agent Action 发布到 GitHub Actions Marketplace。
+本指南将帮助您将 AutoDev Remote Agent 发布到 GitHub Actions Marketplace。
 
 ## 🚀 发布步骤
 

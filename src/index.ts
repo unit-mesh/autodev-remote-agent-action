@@ -1,6 +1,6 @@
 /**
- * AutoDev GitHub Agent Action
- * 
+ * AutoDev Remote Agent
+ *
  * Automated GitHub issue analysis using AI-powered code analysis.
  * This package provides both GitHub Actions integration and standalone webhook server capabilities.
  */

@@ -1,6 +1,6 @@
 # Configuration Guide
 
-This guide covers all configuration options for the AutoDev GitHub Agent Action, including the new transparency and file filtering features.
+This guide covers all configuration options for the AutoDev Remote Agent, including the new transparency and file filtering features.
 
 ## 🚀 Quick Start Configurations
 

@@ -1,4 +1,4 @@
-# AutoDev GitHub Agent Action
+# AutoDev Remote Agent
 
 🤖 Automated GitHub issue analysis using AI-powered code analysis. This action automatically analyzes GitHub issues when they are created or updated, providing intelligent insights and recommendations.
 

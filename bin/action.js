@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * CLI entry point for AutoDev GitHub Agent Action
+ * CLI entry point for AutoDev Remote Agent
  */
 
 const { program } = require('commander');
@@ -33,7 +33,7 @@ const {
 
 program
   .name('autodev-github-action')
-  .description('AutoDev GitHub Agent Action - Automated issue analysis')
+  .description('AutoDev Remote Agent - Automated issue analysis')
   .version(getVersion());
 
 // Analyze command
