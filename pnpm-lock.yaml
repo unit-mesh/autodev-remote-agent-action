@@ -15,14 +15,14 @@ importers:
         specifier: ^6.0.0
         version: 6.0.1
       '@autodev/context-worker':
-        specifier: ^0.4.1
-        version: 0.4.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
+        specifier: ^0.6.1
+        version: 0.6.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
       '@autodev/github-agent':
-        specifier: ^0.4.1
-        version: 0.4.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
+        specifier: ^0.6.1
+        version: 0.6.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)(zod@3.25.56)
       '@autodev/worker-core':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.6.1
+        version: 0.6.1
       '@mixmark-io/domino':
         specifier: ^2.2.0
         version: 2.2.0
@@ -243,19 +243,19 @@ packages:
   '@ast-grep/setup-lang@0.0.3':
     resolution: {integrity: sha512-+ZNOuf0r7ABVwOANrrQpUrUv7xyuhsZGyQ88WZCH/euQmIEvSH3JsUFevg/60M7hi8NVh4vfSQs6ajTpumSzxg==}
 
-  '@autodev/context-worker@0.4.1':
-    resolution: {integrity: sha512-/dSZjpZbwYL1gnojHKIJ+e2LvOIWV3RUu0dOxhbM+u4hcl06mMuX82dfmKVroKt54qnyKmgea1jr/TpWnOF2tQ==}
+  '@autodev/context-worker@0.6.1':
+    resolution: {integrity: sha512-nqAHwqESi0qvzaUqbgTQ7Ckl+3NHPR3dXduv9D85dCDy6x0R3RsCGxHOTo7TCTrMSNg8Kn2u54nJK3DofMjxvA==}
     hasBin: true
 
-  '@autodev/github-agent@0.4.1':
-    resolution: {integrity: sha512-I6iiv89bKaKUB3kor4WWPY/eldApUl6aWPOpkU6OIdPBoiPLyiLW7miIBEmL5LH1GZmnZONTpV9X31PpCBFiEg==}
+  '@autodev/github-agent@0.6.1':
+    resolution: {integrity: sha512-ham2lAI17LIVZpm6ZHmfgwdPOEABBYYC1uOiTNxTo5I6bt93XNThp/1SpVTe0VDlRMHk7mNudNDrqP0i7LqZxw==}
     hasBin: true
 
-  '@autodev/worker-core@0.4.1':
-    resolution: {integrity: sha512-HxZAMss/OxCIQ+uufwW3IfSwNEzy4x0wis3JGp2rjYP9LjMYDwiFIhiphtiv2exfVeb72itZv9TitPbp3cvCsw==}
+  '@autodev/worker-core@0.6.1':
+    resolution: {integrity: sha512-op0blOvp+LoP1htBbfq8ezI+pkAtZyMbrC/xKLDjm3+XG00pUe2hPCI+QRYUnV4SXwg6lPafQcFOanXd9NEecQ==}
 
-  '@autodev/worker-protobuf@0.4.1':
-    resolution: {integrity: sha512-9MUsfVfTrPdzxDj9JpFIbHTlOFy3+6p18OmBGKabc+KXR3+CPlnUFh3HnCXAsIaWtyHkMQnYLZZtpzkAIBgMCg==}
+  '@autodev/worker-protobuf@0.6.1':
+    resolution: {integrity: sha512-D3/LUW+FNOR/nVSAUmP1U4MyB3e6XIe/WSgZMYvY2fZZpnsQIWgLiSDp9Lo4eVVeM+TKCZpTJlOI/h4Od3VDuQ==}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -4084,10 +4084,10 @@ snapshots:
 
   '@ast-grep/setup-lang@0.0.3': {}
 
-  '@autodev/context-worker@0.4.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)':
+  '@autodev/context-worker@0.6.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)':
     dependencies:
-      '@autodev/worker-core': 0.4.1
-      '@autodev/worker-protobuf': 0.4.1(tree-sitter-cli@0.20.8)
+      '@autodev/worker-core': 0.6.1
+      '@autodev/worker-protobuf': 0.6.1(tree-sitter-cli@0.20.8)
       '@modelcontextprotocol/sdk': 1.12.1
       '@mozilla/readability': 0.6.0
       '@octokit/rest': 20.1.2
@@ -4132,11 +4132,11 @@ snapshots:
       - tree_sitter
       - utf-8-validate
 
-  '@autodev/github-agent@0.4.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)':
+  '@autodev/github-agent@0.6.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)(zod@3.25.56)':
     dependencies:
       '@ai-sdk/openai': 1.3.22(zod@3.25.56)
-      '@autodev/context-worker': 0.4.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
-      '@autodev/worker-core': 0.4.1
+      '@autodev/context-worker': 0.6.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
+      '@autodev/worker-core': 0.6.1
       '@modelcontextprotocol/sdk': 1.12.1
       '@octokit/rest': 20.1.2
       '@types/cheerio': 1.0.0
@@ -4146,7 +4146,6 @@ snapshots:
       dotenv: 16.5.0
       express: 5.1.0
       turndown: 7.2.0
-      zod: 3.25.56
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -4158,8 +4157,9 @@ snapshots:
       - tree-sitter-cli
       - tree_sitter
       - utf-8-validate
+      - zod
 
-  '@autodev/worker-core@0.4.1':
+  '@autodev/worker-core@0.6.1':
     dependencies:
       '@modelcontextprotocol/sdk': 1.12.1
       '@vscode/ripgrep': 1.15.11
@@ -4167,11 +4167,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@autodev/worker-protobuf@0.4.1(tree-sitter-cli@0.20.8)':
+  '@autodev/worker-protobuf@0.6.1(tree-sitter-cli@0.20.8)':
     dependencies:
       '@ast-grep/lang-typescript': 0.0.2(tree-sitter-cli@0.20.8)
       '@ast-grep/napi': 0.38.5
-      '@autodev/worker-core': 0.4.1
+      '@autodev/worker-core': 0.6.1
       '@modelcontextprotocol/sdk': 1.12.1
       express: 5.1.0
       protobufjs: 7.5.3
