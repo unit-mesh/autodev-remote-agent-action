@@ -15,14 +15,14 @@ importers:
         specifier: ^6.0.0
         version: 6.0.1
       '@autodev/context-worker':
-        specifier: ^0.6.1
-        version: 0.6.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
-      '@autodev/github-agent':
-        specifier: ^0.6.1
-        version: 0.6.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)(zod@3.25.56)
+        specifier: ^0.7.1
+        version: 0.7.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
+      '@autodev/remote-agent':
+        specifier: ^0.7.1
+        version: 0.7.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)(zod@3.25.56)
       '@autodev/worker-core':
-        specifier: ^0.6.1
-        version: 0.6.1
+        specifier: ^0.7.1
+        version: 0.7.1
       '@mixmark-io/domino':
         specifier: ^2.2.0
         version: 2.2.0
@@ -243,19 +243,19 @@ packages:
   '@ast-grep/setup-lang@0.0.3':
     resolution: {integrity: sha512-+ZNOuf0r7ABVwOANrrQpUrUv7xyuhsZGyQ88WZCH/euQmIEvSH3JsUFevg/60M7hi8NVh4vfSQs6ajTpumSzxg==}
 
-  '@autodev/context-worker@0.6.1':
-    resolution: {integrity: sha512-nqAHwqESi0qvzaUqbgTQ7Ckl+3NHPR3dXduv9D85dCDy6x0R3RsCGxHOTo7TCTrMSNg8Kn2u54nJK3DofMjxvA==}
+  '@autodev/context-worker@0.7.1':
+    resolution: {integrity: sha512-08vuBLs+M6noEESSAdj7GGY7hE8MAoLO6rhdixVe0hVhDp7Q0fFxNZJFxbE+7wH8bZ7d6xiJtKFJP9YCXJx03Q==}
     hasBin: true
 
-  '@autodev/github-agent@0.6.1':
-    resolution: {integrity: sha512-ham2lAI17LIVZpm6ZHmfgwdPOEABBYYC1uOiTNxTo5I6bt93XNThp/1SpVTe0VDlRMHk7mNudNDrqP0i7LqZxw==}
+  '@autodev/remote-agent@0.7.1':
+    resolution: {integrity: sha512-LZzoTeL2QmX7rWGeVYDSa3qM35UoX1lVi/ZG6da0qc7e/lo8DjF3RPhyg7ukifXunD+I/rl3nj0sY2Kvkun3kw==}
     hasBin: true
 
-  '@autodev/worker-core@0.6.1':
-    resolution: {integrity: sha512-op0blOvp+LoP1htBbfq8ezI+pkAtZyMbrC/xKLDjm3+XG00pUe2hPCI+QRYUnV4SXwg6lPafQcFOanXd9NEecQ==}
+  '@autodev/worker-core@0.7.1':
+    resolution: {integrity: sha512-F5yGx9oGbdKLWWlpnSldYhZu9FBGdG31rb4iJmYZDS0zpDO7pvQfpe5aWVIN/j/w/GWKvHxHFL1JhibntU5Hlw==}
 
-  '@autodev/worker-protobuf@0.6.1':
-    resolution: {integrity: sha512-D3/LUW+FNOR/nVSAUmP1U4MyB3e6XIe/WSgZMYvY2fZZpnsQIWgLiSDp9Lo4eVVeM+TKCZpTJlOI/h4Od3VDuQ==}
+  '@autodev/worker-protobuf@0.7.1':
+    resolution: {integrity: sha512-YaiqiyItTrUJypYRpKj0zKThyyWL30Du4MAOr5P+7tgTW8iC6npW1f6UcpUU+r2z1XJsQaE5eL+oBLtuO1o0rg==}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -2591,6 +2591,15 @@ packages:
       canvas:
         optional: true
 
+  jsdom@26.1.0:
+    resolution: {integrity: sha512-Cvc9WUhxSMEo4McES3P7oK3QaXldCfNWp7pl2NNeiIFlCoLr3kfq9kb1fxftiwk1FLV7CvpvDfonxtzUDeSOPg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      canvas: ^3.0.0
+    peerDependenciesMeta:
+      canvas:
+        optional: true
+
   jsesc@3.1.0:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
@@ -3537,6 +3546,13 @@ packages:
     resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
     engines: {node: '>=18'}
 
+  tldts-core@6.1.86:
+    resolution: {integrity: sha512-Je6p7pkk+KMzMv2XXKmAE3McmolOQFdxkKw0R8EYNr7sELW46JqnNeTX8ybPiQgvg1ymCoF8LXs5fzFaZvJPTA==}
+
+  tldts@6.1.86:
+    resolution: {integrity: sha512-WMi/OQ2axVTf/ykqCQgXiIct+mSQDFdH2fkwhPwgEwvJ1kSzZRiinb0zF2Xb8u4+OqPChmyI6MEu4EezNJz+FQ==}
+    hasBin: true
+
   tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -3555,6 +3571,10 @@ packages:
   tough-cookie@4.1.4:
     resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
     engines: {node: '>=6'}
+
+  tough-cookie@5.1.2:
+    resolution: {integrity: sha512-FVDYdxtnj0G6Qm/DhNPSb8Ju59ULcup3tuJxkFb5K8Bv2pUXILbf0xZWU8PX8Ov19OXljbUyveOFwRMwkXzO+A==}
+    engines: {node: '>=16'}
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
@@ -4084,10 +4104,10 @@ snapshots:
 
   '@ast-grep/setup-lang@0.0.3': {}
 
-  '@autodev/context-worker@0.6.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)':
+  '@autodev/context-worker@0.7.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)':
     dependencies:
-      '@autodev/worker-core': 0.6.1
-      '@autodev/worker-protobuf': 0.6.1(tree-sitter-cli@0.20.8)
+      '@autodev/worker-core': 0.7.1
+      '@autodev/worker-protobuf': 0.7.1(tree-sitter-cli@0.20.8)
       '@modelcontextprotocol/sdk': 1.12.1
       '@mozilla/readability': 0.6.0
       '@octokit/rest': 20.1.2
@@ -4132,11 +4152,11 @@ snapshots:
       - tree_sitter
       - utf-8-validate
 
-  '@autodev/github-agent@0.6.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)(zod@3.25.56)':
+  '@autodev/remote-agent@0.7.1(@types/node@20.19.0)(encoding@0.1.13)(react@19.1.0)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)(zod@3.25.56)':
     dependencies:
       '@ai-sdk/openai': 1.3.22(zod@3.25.56)
-      '@autodev/context-worker': 0.6.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
-      '@autodev/worker-core': 0.6.1
+      '@autodev/context-worker': 0.7.1(@types/node@20.19.0)(encoding@0.1.13)(tree-sitter-cli@0.20.8)(tree-sitter@0.20.6)
+      '@autodev/worker-core': 0.7.1
       '@modelcontextprotocol/sdk': 1.12.1
       '@octokit/rest': 20.1.2
       '@types/cheerio': 1.0.0
@@ -4145,6 +4165,7 @@ snapshots:
       cheerio: 1.1.0
       dotenv: 16.5.0
       express: 5.1.0
+      jsdom: 26.1.0
       turndown: 7.2.0
     transitivePeerDependencies:
       - '@types/node'
@@ -4159,7 +4180,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@autodev/worker-core@0.6.1':
+  '@autodev/worker-core@0.7.1':
     dependencies:
       '@modelcontextprotocol/sdk': 1.12.1
       '@vscode/ripgrep': 1.15.11
@@ -4167,11 +4188,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@autodev/worker-protobuf@0.6.1(tree-sitter-cli@0.20.8)':
+  '@autodev/worker-protobuf@0.7.1(tree-sitter-cli@0.20.8)':
     dependencies:
       '@ast-grep/lang-typescript': 0.0.2(tree-sitter-cli@0.20.8)
       '@ast-grep/napi': 0.38.5
-      '@autodev/worker-core': 0.6.1
+      '@autodev/worker-core': 0.7.1
       '@modelcontextprotocol/sdk': 1.12.1
       express: 5.1.0
       protobufjs: 7.5.3
@@ -6902,6 +6923,33 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  jsdom@26.1.0:
+    dependencies:
+      cssstyle: 4.4.0
+      data-urls: 5.0.0
+      decimal.js: 10.5.0
+      html-encoding-sniffer: 4.0.0
+      http-proxy-agent: 7.0.2
+      https-proxy-agent: 7.0.6
+      is-potential-custom-element-name: 1.0.1
+      nwsapi: 2.2.20
+      parse5: 7.3.0
+      rrweb-cssom: 0.8.0
+      saxes: 6.0.0
+      symbol-tree: 3.2.4
+      tough-cookie: 5.1.2
+      w3c-xmlserializer: 5.0.0
+      webidl-conversions: 7.0.0
+      whatwg-encoding: 3.1.1
+      whatwg-mimetype: 4.0.0
+      whatwg-url: 14.2.0
+      ws: 8.18.2
+      xml-name-validator: 5.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   jsesc@3.1.0: {}
 
   json-buffer@3.0.1: {}
@@ -8060,6 +8108,12 @@ snapshots:
 
   throttleit@2.1.0: {}
 
+  tldts-core@6.1.86: {}
+
+  tldts@6.1.86:
+    dependencies:
+      tldts-core: 6.1.86
+
   tmp@0.0.33:
     dependencies:
       os-tmpdir: 1.0.2
@@ -8078,6 +8132,10 @@ snapshots:
       punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
+
+  tough-cookie@5.1.2:
+    dependencies:
+      tldts: 6.1.86
 
   tr46@0.0.3: {}
 
