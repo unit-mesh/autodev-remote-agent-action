@@ -6,3 +6,4 @@ coverage/
 .nyc_output/
 .cache/
 !node_modules/@mixmark-io/domino
+.idea

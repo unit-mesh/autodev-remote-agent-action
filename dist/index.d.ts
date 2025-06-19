@@ -1,6 +1,6 @@
 import express from 'express';
 import { Webhooks } from '@octokit/webhooks';
-export { CodeContext, GitHubAgentImplementation, GitHubConfig, GitHubIssue, IssueAnalysisResult } from '@autodev/github-agent';
+export { CodeContext, GitHubAgentImplementation, GitHubConfig, GitHubIssue, IssueAnalysisResult } from '@autodev/remote-agent';
 
 interface ActionConfig {
     githubToken: string;

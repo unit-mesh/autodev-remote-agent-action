@@ -4,7 +4,7 @@ import {
   AnalysisReportGenerator,
   fetchUrlsFromIssue,
   LLMService
-} from '@autodev/github-agent';
+} from '@autodev/remote-agent';
 import {
   ActionContext,
   AnalysisOptions,

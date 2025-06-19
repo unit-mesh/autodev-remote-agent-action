@@ -5,7 +5,7 @@ export type {
   CodeContext,
   IssueAnalysisResult,
   GitHubAgentImplementation
-} from '@autodev/github-agent';
+} from '@autodev/remote-agent';
 
 // GitHub Action specific types
 export interface ActionConfig {

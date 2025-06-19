@@ -7,7 +7,7 @@ import { ActionConfig } from '../../src/types';
 
 // Mock dependencies
 jest.mock('@octokit/rest');
-jest.mock('@autodev/github-agent');
+jest.mock('@autodev/remote-agent');
 
 describe('GitHubActionService', () => {
   let service: GitHubActionService;

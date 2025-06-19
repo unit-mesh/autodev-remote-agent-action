@@ -325,7 +325,7 @@ The action now provides detailed process information in comments:
 ### Webhook Server Setup
 
 ```javascript
-const { startWebhookServer } = require('@autodev/github-agent-action');
+const { startWebhookServer } = require('@autodev/remote-agent-action');
 
 const server = await startWebhookServer({
   port: 3000,

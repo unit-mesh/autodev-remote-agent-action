@@ -82,7 +82,7 @@ if (!this.llmService.isAvailable()) {
 
 // Use same pattern as LLMService.generateAnalysisReport
 const { generateText } = await import('ai');
-const { configureLLMProvider } = await import('@autodev/github-agent');
+const { configureLLMProvider } = await import('@autodev/remote-agent');
 
 const llmConfig = configureLLMProvider();
 const { text } = await generateText({
