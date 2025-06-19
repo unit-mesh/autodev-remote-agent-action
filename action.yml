@@ -111,5 +111,3 @@ outputs:
 runs:
   using: 'node20'
   main: 'dist/index.js'
-  args:
-    - --experimental-sqlite   # ❌ 不支持这么传递 Node.js 参数

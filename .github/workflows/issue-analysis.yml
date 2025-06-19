@@ -20,7 +20,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ripgrep
       
       - name: 🔍 Analyze Issue with AutoDev
-        uses: unit-mesh/autodev-remote-agent-action@v0.4.5
+        uses: unit-mesh/autodev-remote-agent-action@v0.4.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
