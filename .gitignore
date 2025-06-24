@@ -1,9 +1,9 @@
-node_modules
+node_modules/
 *.log
 .env
 .DS_Store
 coverage/
 .nyc_output/
 .cache/
-!node_modules/@mixmark-io/domino
 .idea
+dist/

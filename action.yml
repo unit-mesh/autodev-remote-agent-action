@@ -109,5 +109,40 @@ outputs:
     description: 'Error message if the analysis failed'
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+    
+    - name: Build project
+      shell: bash
+      run: npm run build:action
+    
+    - name: Run action
+      shell: node
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+        INPUT_WORKSPACE_PATH: ${{ inputs.workspace-path }}
+        INPUT_ANALYSIS_DEPTH: ${{ inputs.analysis-depth }}
+        INPUT_AUTO_COMMENT: ${{ inputs.auto-comment }}
+        INPUT_AUTO_LABEL: ${{ inputs.auto-label }}
+        INPUT_TRIGGER_EVENTS: ${{ inputs.trigger-events }}
+        INPUT_EXCLUDE_LABELS: ${{ inputs.exclude-labels }}
+        INPUT_INCLUDE_LABELS: ${{ inputs.include-labels }}
+        INPUT_WEBHOOK_SECRET: ${{ inputs.webhook-secret }}
+        INPUT_OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+        INPUT_DEEPSEEK_TOKEN: ${{ inputs.deepseek-token }}
+        INPUT_GLM_TOKEN: ${{ inputs.glm-token }}
+        INPUT_INCLUDE_CONFIG_FILES: ${{ inputs.include-config-files }}
+        INPUT_INCLUDE_TEST_FILES: ${{ inputs.include-test-files }}
+        INPUT_INCLUDE_PATTERNS: ${{ inputs.include-patterns }}
+        INPUT_EXCLUDE_PATTERNS: ${{ inputs.exclude-patterns }}
+        INPUT_FORCE_INCLUDE_FILES: ${{ inputs.force-include-files }}
+      run: dist/index.js
