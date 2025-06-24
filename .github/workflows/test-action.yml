@@ -46,7 +46,7 @@ jobs:
         run: npm ci
       
       - name: 🔍 Test AutoDev Action
-        uses: unit-mesh/autodev-remote-agent-action@v0.4.10
+        uses: unit-mesh/autodev-remote-agent-action@v0.4.11
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}

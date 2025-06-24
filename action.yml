@@ -115,15 +115,15 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'yarn'
+        cache: 'npm'
     
     - name: Install dependencies
       shell: bash
-      run: yarn install --frozen-lockfile
+      run: npm ci
     
     - name: Build project
       shell: bash
-      run: yarn build:action
+      run: npm run build:action
     
     - name: Run action
       shell: node
