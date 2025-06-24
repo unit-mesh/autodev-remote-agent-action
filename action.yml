@@ -115,19 +115,15 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'pnpm'
-    
-    - name: Install pnpm
-      shell: bash
-      run: npm install -g pnpm
+        cache: 'yarn'
     
     - name: Install dependencies
       shell: bash
-      run: pnpm install
+      run: yarn install --frozen-lockfile
     
     - name: Build project
       shell: bash
-      run: pnpm run build:action
+      run: yarn build:action
     
     - name: Run action
       shell: node
