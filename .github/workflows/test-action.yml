@@ -35,9 +35,18 @@ jobs:
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
       
       - name: 🔍 Test AutoDev Action
-        uses: unit-mesh/autodev-remote-agent-action@v0.4.9
+        uses: unit-mesh/autodev-remote-agent-action@v0.4.10
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deepseek-token: ${{ secrets.DEEPSEEK_TOKEN }}
